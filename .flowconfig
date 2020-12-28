@@ -1,0 +1,14 @@
+[ignore]
+.*/node_modules/config-chain/test/broken.json
+.*/node_modules/license-checker/tests/config/custom_format_broken.json
+
+[include]
+
+[libs]
+
+[lints]
+all=error
+
+[options]
+
+[strict]
