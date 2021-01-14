@@ -9,21 +9,23 @@ export type CreateAPIGatewayEventOptions = {
   body?: string,
   path?: string,
   pathParameters?: PathParameters,
-  queryStringParameters?: QueryStringParameters
+  queryStringParameters?: QueryStringParameters,
+  isBase64Encoded?: boolean
 };
 
 export default function createAPIGatewayEvent({
   pathParameters = null,
   path = "",
   body = null,
-  queryStringParameters = null
+  queryStringParameters = null,
+  isBase64Encoded = false
 }: CreateAPIGatewayEventOptions = {}): APIGatewayEvent<string> {
   return {
     body,
     headers: {},
     multiValueHeaders: {},
     httpMethod: "",
-    isBase64Encoded: false,
+    isBase64Encoded,
     path,
     pathParameters,
     queryStringParameters,
