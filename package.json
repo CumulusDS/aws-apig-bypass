@@ -1,6 +1,6 @@
 {
   "name": "@cumulusds/aws-apig-bypass",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Client for API Gateway handlers, bypassing API Gateway by directly invoking the Lambda",
   "repository": "https://github.com/CumulusDS/aws-apig-bypass",
   "author": "Cumulus Digital Systems",
