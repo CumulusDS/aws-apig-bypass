@@ -52,11 +52,10 @@
       }
     }
   },
-  "dependencies": {
-    "@cumulusds/flow-aws-sdk": "^2.818.0",
-    "flow-aws-lambda": "CumulusDS/flow-aws-lambda#ef1bd9a0342e55a0e9e1b225bdbc2a3c2a4d5632"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@cumulusds/flow-aws-sdk": "^2.818.0",
+    "flow-aws-lambda": "^1.0.6",
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.7.4",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.7.4",
