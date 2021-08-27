@@ -5,6 +5,7 @@ import type { AWSError } from "@cumulusds/flow-aws-sdk/lib/error";
 import type { Request } from "@cumulusds/flow-aws-sdk/lib/request";
 import type { APIGatewayHandlerClient } from "../../src/create-client";
 import { createAPIGatewayEvent, createClient } from "../../src";
+import { LambdaInvokeError } from "../../src/create-lambda-client";
 
 type ClientPayload = {};
 
@@ -13,8 +14,9 @@ describe("createClient", () => {
   const data = { hello: "world" };
   const body = JSON.stringify(data);
 
-  function createLambdaClient({ StatusCode, Payload = JSON.stringify({ statusCode: 200, body }) }) {
-    const resolvedValue: Lambda$InvocationResponse = { StatusCode, Payload };
+  function createLambdaClient({ StatusCode, Payload = JSON.stringify({ statusCode: 200, body }), LogResult = null }) {
+    // $FlowFixMe
+    const resolvedValue: Lambda$InvocationResponse = { StatusCode, Payload, LogResult };
 
     // $FlowFixMe[incompatible-type] complete Response class is not required.
     const request: Request<Lambda$InvocationResponse, AWSError> = {
@@ -91,7 +93,7 @@ describe("createClient", () => {
     });
 
     it("is unsuccessful with AWS Lambda API StatusCode 500", () => {
-      const { Lambda } = createLambdaClient({ StatusCode: 500 });
+      const { Lambda } = createLambdaClient({ StatusCode: 500, LogResult: "Ym9ya2Vu" });
       const client = createClient<ClientPayload>({
         Lambda,
         FunctionName
@@ -102,7 +104,13 @@ describe("createClient", () => {
           jointIdentifierId: "1234"
         }
       });
-      return expect(client(request)).rejects.toEqual(new Error("AWS Lambda invocation API failed with status 500"));
+      return expect(client(request)).rejects.toEqual(
+        new LambdaInvokeError({
+          StatusCode: 500,
+          LogResult: "Ym9ya2Vu",
+          Payload: JSON.stringify({ statusCode: 200, body })
+        })
+      );
     });
 
     it("is unsuccessful with undefined StatusCode", () => {
@@ -118,7 +126,7 @@ describe("createClient", () => {
         }
       });
       return expect(client(request)).rejects.toEqual(
-        new Error("AWS Lambda invocation API failed with status (no status code)")
+        new LambdaInvokeError({ Payload: JSON.stringify({ statusCode: 200, body }) })
       );
     });
 
