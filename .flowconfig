@@ -1,14 +1,12 @@
 [ignore]
-.*/node_modules/config-chain/test/broken.json
-.*/node_modules/license-checker/tests/config/custom_format_broken.json
-
-[include]
+<PROJECT_ROOT>/node_modules/config-chain/test/broken.json
+<PROJECT_ROOT>/node_modules/license-checker/tests/config/custom_format_broken.json
+<PROJECT_ROOT>/lib
 
 [libs]
+node_modules/@cumulusds/flow-aws-sdk/index.js
+node_modules/@cumulusds/flow-aws-sdk/clients
+node_modules/@cumulusds/flow-aws-sdk/lib
 
 [lints]
 all=error
-
-[options]
-
-[strict]

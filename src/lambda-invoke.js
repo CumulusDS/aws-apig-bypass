@@ -1,6 +1,6 @@
 // @flow
 
-import type Lambda from "@cumulusds/flow-aws-sdk/clients/lambda";
+import type { Lambda } from "aws-sdk";
 
 /**
  * This library only needs the invoke method from aws-sdk Lambda client.

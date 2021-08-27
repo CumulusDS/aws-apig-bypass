@@ -1,8 +1,5 @@
 // @flow
 
-import type { Lambda$InvocationResponse } from "@cumulusds/flow-aws-sdk/clients/lambda";
-import type { AWSError } from "@cumulusds/flow-aws-sdk/lib/error";
-import type { Request } from "@cumulusds/flow-aws-sdk/lib/request";
 import type { APIGatewayHandlerClient } from "../../src/create-client";
 import { createAPIGatewayEvent, createClient } from "../../src";
 import { LambdaInvokeError } from "../../src/create-lambda-client";
@@ -18,12 +15,10 @@ describe("createClient", () => {
     // $FlowFixMe
     const resolvedValue: Lambda$InvocationResponse = { StatusCode, Payload, LogResult };
 
-    // $FlowFixMe[incompatible-type] complete Response class is not required.
-    const request: Request<Lambda$InvocationResponse, AWSError> = {
+    // $FlowFixMe[incompatible-call]
+    const invoke = jest.fn(() => ({
       promise: jest.fn().mockResolvedValue(resolvedValue)
-    };
-
-    const invoke = jest.fn(() => request);
+    }));
     const Lambda = {
       invoke
     };
