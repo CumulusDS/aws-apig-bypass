@@ -1,6 +1,6 @@
 // @flow
 
-import type { APIGatewayEvent } from "flow-aws-lambda";
+import type { APIGatewayEvent } from "@cumulusds/flow-aws-lambda";
 
 export type PathParameters = { [name: string]: string } | null;
 export type QueryStringParameters = { [name: string]: string } | null;

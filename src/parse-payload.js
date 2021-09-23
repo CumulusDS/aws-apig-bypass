@@ -1,6 +1,6 @@
 // @flow
 
-import type { ProxyResult } from "flow-aws-lambda";
+import type { ProxyResult } from "@cumulusds/flow-aws-lambda";
 import type { Response } from "./response";
 
 /**

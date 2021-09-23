@@ -1,6 +1,6 @@
 // @flow
 
-import type { APIGatewayEvent } from "flow-aws-lambda";
+import type { APIGatewayEvent } from "@cumulusds/flow-aws-lambda";
 import createLambdaClient from "./create-lambda-client";
 import type { Response } from "./response";
 import jsonStringify from "./json-stringify";
