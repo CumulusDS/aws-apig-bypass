@@ -52,7 +52,9 @@
       }
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "@cumulusds/flow-aws-lambda": "^1.0.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.7.4",
@@ -71,7 +73,6 @@
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jest": "^21.15.1",
     "eslint-plugin-prettier": "^2.6.0",
-    "flow-aws-lambda": "^1.0.6",
     "flow-bin": "^0.142.0",
     "flow-copy-source": "^2.0.9",
     "flow-coverage-report": "^0.8.0",

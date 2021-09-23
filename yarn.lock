@@ -1046,6 +1046,11 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@cumulusds/flow-aws-lambda@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@cumulusds/flow-aws-lambda/-/flow-aws-lambda-1.0.0.tgz#5170ff74eb21bf20401581f1cc98a9817936fe8d"
+  integrity sha512-egJSTZzoMxRVhY1w/93oCIq5UEa+G7IdZaSfjb2u9TSdE8/oYBxS52RSJZEJXKx4n46n+0sqlqbcEpz1Oo8JxA==
+
 "@cumulusds/flow-aws-sdk@^2.818.3":
   version "2.818.3"
   resolved "https://registry.yarnpkg.com/@cumulusds/flow-aws-sdk/-/flow-aws-sdk-2.818.3.tgz#13eba05adb0d1d4b5c82b59199a65732a9a8b6e2"
@@ -3540,11 +3545,6 @@ flow-annotation-check@^1.8.1:
     eslint "^6.0.1"
     glob "7.1.6"
     load-pkg "^4.0.0"
-
-flow-aws-lambda@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/flow-aws-lambda/-/flow-aws-lambda-1.0.6.tgz#4fb75c3239f80718a9c2cd838861ea1287b60867"
-  integrity sha512-493Tc6D1vJ5b1VWPkXUXV6zJUNncQy1D/pcfZ4EP4+29i2tZuAty0pfdX9cxmQkZ7P7yClMp6iOhsNyFmv0bFg==
 
 flow-bin@^0.142.0:
   version "0.142.0"
