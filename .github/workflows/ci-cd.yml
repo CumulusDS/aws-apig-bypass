@@ -10,10 +10,10 @@ on:
 
 jobs:
   unit:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node: [10, 12, 13, 14, 15]
+        node: [12, 14, 16, 18]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -41,14 +41,15 @@ jobs:
         run: yarn build:license-checker
       - name: Test
         run: yarn test
-      - uses: 8398a7/action-slack@v3
+      - name: Notify slack
+        uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
           author_name: ${{ github.repository }} ${{ github.workflow }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-        if: always()
+        if: always() && github.actor != 'dependabot[bot]'
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
