@@ -1,0 +1,10 @@
+name: Publish
+on:
+  release:
+    types: [released]
+jobs:
+  unit:
+    name: Unit
+    if: github.event_name == 'release'
+    uses: CumulusDS/workflows/.github/workflows/package-publish.yml@master
+    secrets: inherit

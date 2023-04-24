@@ -1,0 +1,12 @@
+name: Sync Labels
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/labels.yml
+jobs:
+  sync:
+    name: Sync Labels
+    uses: CumulusDS/workflows/.github/workflows/sync-labels.yml@master
+    secrets: inherit
