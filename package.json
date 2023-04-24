@@ -6,7 +6,7 @@
   "author": "Cumulus Digital Systems",
   "license": "MIT",
   "engines": {
-    "node": ">=12 || ^14.15.0 || >=16.0.0 || >=18.0.0"
+    "node": "^14.15.0 || ^16.0.0 || ^18.0.0 || ^19.0.0"
   },
   "main": "lib/index.js",
   "src": [
@@ -14,17 +14,27 @@
     "package.json"
   ],
   "scripts": {
-    "build": "run-p build:babel build:flow-copy-source build:license-checker",
+    "build": "yarn run build:babel && yarn run build:flow-copy-source && yarn run build:license-checker",
     "build:babel": "babel src --out-dir lib --ignore test.js",
     "build:flow-copy-source": "flow-copy-source --ignore test.js src lib",
     "build:license-checker": "license-checker --csv --out var/licenses.csv",
     "clean": "shx rm -rf lib",
+    "git:commit": "git add package.json .yarn/versions && git commit -m v${npm_package_version}",
+    "git:commit:publish": "git add package.json .yarn/versions/* && git commit -m v${npm_package_version}",
+    "git:commit:version": "git add .yarn/versions/* && git commit -m 'Deferred version bump'",
     "git:push": "git push --follow-tags",
-    "publish:patch": "run-s version:patch git:push",
-    "publish:minor": "run-s version:minor git:push",
-    "publish:major": "run-s version:major git:push",
+    "git:tag": "git tag -a v${npm_package_version} -m v${npm_package_version}",
+    "npm:tag:remove": "yarn npm tag remove ${npm_package_name} $0",
+    "prerelease": "yarn version apply && yarn run version:feature $0",
+    "publish:patch": "yarn version patch && yarn publish:sync",
+    "publish:minor": "yarn version minor && yarn publish:sync",
+    "publish:major": "yarn version major && yarn publish:sync",
+    "publish:prepatch": "yarn run version:prepatch && yarn run git:push",
+    "publish:prerelease": "yarn npm publish",
+    "publish:sync": "yarn run git:commit && yarn run git:tag && yarn git:push",
     "sites": "node bin/sites.js",
-    "test": "run-p --aggregate-output test:**",
+    "test": "yarn run test:flow && yarn run test:jest && yarn run test:lint && yarn run test:prettier",
+    "test:flow": "yarn run test:flow:coverage-report && yarn run test:flow:status",
     "test:flow:coverage-report": "flow-coverage-report -i '{src,test}/**/*.js' -t html -t text --threshold 99 --output-dir var/coverage/flow",
     "test:flow:status": "flow status",
     "test:jest": "jest --color",
@@ -32,7 +42,10 @@
     "test:prettier": "prettier --list-different \"{src,test}/**/*.{js,jsx,yml}\" \"*.{js,yml}\"",
     "version:patch": "yarn version --new-version patch",
     "version:minor": "yarn version --new-version minor",
-    "version:major": "yarn version --new-version major"
+    "version:major": "yarn version --new-version major",
+    "version:feature": "yarn version ${npm_package_version}-$0.$(git describe | rev | cut -d '-' -f 2 | rev).g$(git rev-parse --short HEAD)",
+    "version:prepatch": "yarn version --new-version prepatch",
+    "version:prerelease": "yarn version ${npm_package_version}"
   },
   "jest": {
     "verbose": true,
