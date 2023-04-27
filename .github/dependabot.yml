@@ -3,7 +3,7 @@ registries:
   npm-npmjs:
     type: npm-registry
     url: https://registry.npmjs.org
-    token: ${{ secrets.NODE_AUTH_TOKEN }}
+    token: ${{ secrets.NPM_TOKEN_READ_ONLY_DEPENDABOT }}
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -25,13 +25,18 @@ updates:
       interval: "daily"
       time: "07:30"
       timezone: "America/New_York"
+    commit-message: # Prefix all commit messages with "npm: "
+      prefix: "npm"
     labels:
       - "dependencies"
-      - "dependabot"
     assignees:
       - "jeffsays"
     reviewers:
       - "jeffsays"
     allow:
       - dependency-name: "@cumulusds/*"
+        dependency-type: "all"
+      - dependency-name: "serverless-*"
+        dependency-type: "all"
+      - dependency-name: "serverless"
         dependency-type: "all"

@@ -1,0 +1,12 @@
+name: Package Checker
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  package-checker:
+    name: Package Checker
+    uses: CumulusDS/workflows/.github/workflows/packages.yml@master
+    secrets: inherit
