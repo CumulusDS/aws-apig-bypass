@@ -2,6 +2,7 @@
 <PROJECT_ROOT>/node_modules/config-chain/test/broken.json
 <PROJECT_ROOT>/node_modules/license-checker/tests/config/custom_format_broken.json
 <PROJECT_ROOT>/lib
+<PROJECT_ROOT>/node_modules/jest-resolve/node_modules/resolve/test/resolver/malformed_package_json/package.json
 
 [libs]
 node_modules/@cumulusds/flow-aws-sdk/index.js
