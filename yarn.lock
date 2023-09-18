@@ -11334,16 +11334,16 @@ __metadata:
   linkType: hard
 
 "y18n@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "y18n@npm:4.0.0"
-  checksum: 66e22d38bf994723b625dcc0159f6fd4068c511f8c565df39e8aa53426f5f31e4a9664a8d7099fbde2c22a1c71be2cb60e83f4c2961a5ee48672418d825a7bc2
+  version: 4.0.3
+  resolution: "y18n@npm:4.0.3"
+  checksum: 014dfcd9b5f4105c3bb397c1c8c6429a9df004aa560964fb36732bfb999bfe83d45ae40aeda5b55d21b1ee53d8291580a32a756a443e064317953f08025b1aa4
   languageName: node
   linkType: hard
 
 "y18n@npm:^5.0.2":
-  version: 5.0.5
-  resolution: "y18n@npm:5.0.5"
-  checksum: f97d3cc7e5a0f68114721e39036cd64f4b993b06d08cea6e0cc8a684a7f34a2fee05be55e2e7dde7329ba77788376bd43b4eb19c6c9dbc3e2c3cdea68b3ba38e
+  version: 5.0.8
+  resolution: "y18n@npm:5.0.8"
+  checksum: 54f0fb95621ee60898a38c572c515659e51cc9d9f787fb109cef6fde4befbe1c4602dc999d30110feee37456ad0f1660fa2edcfde6a9a740f86a290999550d30
   languageName: node
   linkType: hard
 
