@@ -10,10 +10,62 @@ on:
 jobs:
   unit:
     name: Unit
-    if: | # If the PR is coming from a fork (pull_request_target), ensure it's opened by "dependabot[bot]".
-      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
-    uses: CumulusDS/workflows/.github/workflows/package-unit.yml@master
-    secrets: inherit
-    with: # account for dependabot; otherwise we want blank ref for downstream actions
-      ref: ${{ github.event.pull_request.head.sha || '' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node:
+          - 18
+          - 20
+          - 21
+    steps:
+      # Setup
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v3
+      - name: Get yarn v3 cache directory
+        id: get-yarn3-cache
+        run: |
+          echo "::group::Get yarn cache directory"
+          echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+          echo "::endgroup::"
+        shell: bash
+      - name: Restore yarn cache directory
+        id: restore-yarn-cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.get-yarn3-cache.outputs.dir || steps.get-yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: yarn v3 install
+        id: yarn3-install
+        run: |
+          echo "::group::Yarn Install"
+          yarn install --immutable
+          echo "::endgroup::"
+        shell: bash
+
+      # Test
+      - name: Check Licenses
+        id: check-licenses
+        run: |
+          echo "::group::Check Licenses"
+          yarn build:license-checker
+          echo "::endgroup::"
+        shell: bash
+      - name: Yarn test
+        id: yarn-test
+        run: |
+          echo "::group::yarn test"
+          yarn test
+          echo "::endgroup::"
+        shell: bash
+
+      # Upload
+      - name: Upload artifacts
+        id: upload-artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifacts-node-${{ matrix.node }}
+          path: var
