@@ -7,6 +7,7 @@ We often build externally accessible REST endpoints using API Gateway and Lambda
 This library provides an adapter for the Lambda SDK to make it easy to directly invoke the handler.
 
 ```flow js
+import { createAPIGatewayEvent, createClient } from "@cumulusds/aws-apig-bypass";
 import { Lambda } from "aws-sdk";
 
 function getLunches(location: string, category: string): Promise<Array<Lunch>> {
