@@ -23,3 +23,5 @@ jobs:
     name: Publish Prerelease
     uses: CumulusDS/workflows/.github/workflows/package-prerelease.yml@master
     secrets: inherit
+    with:
+      access: public
