@@ -4,8 +4,7 @@
  * @param value
  * @returns {string}
  */
-// flowlint-next-line unclear-type:off
-export default function jsonStringify(value: any): string {
+export default function jsonStringify(value: unknown): string {
   const result = JSON.stringify(value);
   if (result == null) {
     throw new Error("Cannot stringify value");

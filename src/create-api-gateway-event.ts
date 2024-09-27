@@ -19,12 +19,12 @@ const defaultRequestContext = {
     sourceIp: "",
     user: null,
     userAgent: null,
-    userArn: null
+    userArn: null,
   },
   stage: "",
   requestId: "",
   resourceId: "",
-  resourcePath: ""
+  resourcePath: "",
 };
 
 export type CreateAPIGatewayEventOptions = {
@@ -62,7 +62,7 @@ export default function createAPIGatewayEvent({
   multiValueQueryStringParameters = {},
   stageVariables = {},
   requestContext = defaultRequestContext,
-  resource = ""
+  resource = "",
 }: CreateAPIGatewayEventOptions = {}): APIGatewayEvent {
   return {
     body,
@@ -76,6 +76,6 @@ export default function createAPIGatewayEvent({
     multiValueQueryStringParameters,
     stageVariables,
     requestContext,
-    resource
+    resource,
   } as APIGatewayEvent;
 }

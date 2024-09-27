@@ -1,5 +1,5 @@
-import type { Response } from "./response";
 import { ProxyResult } from "aws-lambda";
+import type { Response } from "./response";
 
 /**
  * Decode the handler response
@@ -18,6 +18,6 @@ export default function parsePayload<T>(payload: string, validate?: (arg1: T) =>
   return {
     data,
     status: proxyResult.statusCode,
-    headers: proxyResult.headers ?? {}
+    headers: proxyResult.headers ?? {},
   };
 }
