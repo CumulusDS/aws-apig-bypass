@@ -1,5 +1,3 @@
-// @flow
-
 /**
  * Stringify to JSON, returning a string or else throwing an exception because of unserializable input.
  *

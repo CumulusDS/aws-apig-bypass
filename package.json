@@ -12,14 +12,11 @@
   "files": [
     "README.md",
     "lib/*",
-    "lib/dynamodb/**",
-    "lib/services/**",
     "package.json"
   ],
   "scripts": {
-    "build": "yarn run build:babel && yarn run build:flow-copy-source && yarn run build:license-checker",
-    "build:babel": "babel src --out-dir lib --ignore test.js",
-    "build:flow-copy-source": "flow-copy-source --ignore test.js src lib",
+    "build": "yarn run build:license-checker && tsc",
+    "build:flowtypes": "find lib -type f -name '*.d.ts' -exec sh -c 'yarn flowgen --add-flow-header $1 -o ${1%.*.*}.js.flow' _ '{}' \\;",
     "build:license-checker": "license-checker --csv --out var/licenses.csv",
     "clean": "shx rm -rf lib",
     "git:commit": "git add package.json .yarn/versions && git commit -m v${npm_package_version}",
@@ -28,7 +25,7 @@
     "git:push": "git push --follow-tags",
     "git:tag": "git tag -a v${npm_package_version} -m v${npm_package_version}",
     "npm:tag:remove": "yarn npm tag remove ${npm_package_name} $0",
-    "prepack": "yarn run build",
+    "prepack": "yarn run build && yarn run build:flowtypes",
     "prerelease": "yarn version apply && yarn run version:feature $0",
     "publish:patch": "yarn version patch && yarn publish:sync",
     "publish:minor": "yarn version minor && yarn publish:sync",
@@ -36,11 +33,7 @@
     "publish:prepatch": "yarn run version:prepatch && yarn run git:push",
     "publish:prerelease": "yarn npm publish",
     "publish:sync": "yarn run git:commit && yarn run git:tag && yarn git:push",
-    "sites": "node bin/sites.js",
-    "test": "yarn run test:flow && yarn run test:jest && yarn run test:lint && yarn run test:prettier",
-    "test:flow": "yarn run test:flow:coverage-report && yarn run test:flow:status",
-    "test:flow:coverage-report": "flow-coverage-report -i '{src,test}/**/*.js' -t html -t text --threshold 99 --output-dir var/coverage/flow",
-    "test:flow:status": "flow status",
+    "test": "yarn run test:jest && yarn run test:lint && yarn run test:prettier",
     "test:jest": "jest --color",
     "test:lint": "eslint *.js src test",
     "test:prettier": "prettier --list-different \"{src,test}/**/*.{js,jsx,yml}\" \"*.{js,yml}\"",
@@ -55,7 +48,7 @@
     "verbose": true,
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/**/*.js"
+      "src/**/*.ts"
     ],
     "testEnvironment": "node",
     "coverageDirectory": "var/coverage/test",
@@ -69,7 +62,8 @@
     }
   },
   "dependencies": {
-    "@cumulusds/flow-aws-lambda": "^1.0.0"
+    "aws-lambda": "^1.0.7",
+    "typescript": "^5.6.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
@@ -77,22 +71,19 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.7.4",
     "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@babel/preset-env": "^7.0.0",
-    "@babel/preset-flow": "^7.0.0",
-    "@cumulusds/flow-aws-sdk": "^2.818.3",
-    "@cumulusds/flow-coverage-report": "^0.8.1",
+    "@babel/preset-typescript": "^7.24.7",
+    "@types/aws-lambda": "^8.10.145",
+    "@types/jest": "^29.5.13",
     "aws-sdk": "^2.1460.0",
     "babel-eslint": "10.0.3",
     "babel-jest": "^29.7.0",
     "eslint": "^7.5.0",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-flowtype": "^2.49.3",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jest": "^21.15.1",
     "eslint-plugin-prettier": "^2.6.0",
-    "flow-bin": "^0.142.0",
-    "flow-copy-source": "^2.0.9",
-    "flow-typed": "^3.9.0",
+    "flowgen": "^1.21.0",
     "git-describe": "^4.0.4",
     "jest": "^29.7.0",
     "license-checker": "^25.0.1",

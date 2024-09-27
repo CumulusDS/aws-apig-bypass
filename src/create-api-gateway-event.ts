@@ -1,6 +1,4 @@
-// @flow
-
-import type { APIGatewayEvent } from "@cumulusds/flow-aws-lambda";
+import type { APIGatewayEvent } from "aws-lambda";
 
 export type PathParameters = { [name: string]: string } | null;
 export type QueryStringParameters = { [name: string]: string } | null;
@@ -30,18 +28,26 @@ const defaultRequestContext = {
 };
 
 export type CreateAPIGatewayEventOptions = {
-  body?: string,
-  headers?: { [name: string]: string },
-  multiValueHeaders?: { [name: string]: string[] },
-  httpMethod?: string,
-  isBase64Encoded?: boolean,
-  path?: string,
-  pathParameters?: PathParameters,
-  queryStringParameters?: QueryStringParameters,
-  multiValueQueryStringParameters?: { [name: string]: string[] },
-  stageVariables?: { [name: string]: string },
-  requestContext?: typeof defaultRequestContext,
-  resource?: string
+  body?: string | null;
+  headers?: {
+    [name: string]: string;
+  };
+  multiValueHeaders?: {
+    [name: string]: string[];
+  };
+  httpMethod?: string;
+  isBase64Encoded?: boolean;
+  path?: string;
+  pathParameters?: PathParameters;
+  queryStringParameters?: QueryStringParameters;
+  multiValueQueryStringParameters?: {
+    [name: string]: string[];
+  };
+  stageVariables?: {
+    [name: string]: string;
+  };
+  requestContext?: typeof defaultRequestContext;
+  resource?: string;
 };
 
 export default function createAPIGatewayEvent({
@@ -53,11 +59,11 @@ export default function createAPIGatewayEvent({
   pathParameters = null,
   path = "",
   queryStringParameters = null,
-  multiValueQueryStringParameters = null,
-  stageVariables = null,
+  multiValueQueryStringParameters = {},
+  stageVariables = {},
   requestContext = defaultRequestContext,
   resource = ""
-}: CreateAPIGatewayEventOptions = {}): APIGatewayEvent<string> {
+}: CreateAPIGatewayEventOptions = {}): APIGatewayEvent {
   return {
     body,
     headers,
@@ -71,5 +77,5 @@ export default function createAPIGatewayEvent({
     stageVariables,
     requestContext,
     resource
-  };
+  } as APIGatewayEvent;
 }

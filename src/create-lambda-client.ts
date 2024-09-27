@@ -1,6 +1,5 @@
-// @flow
-
-import type { LambdaInvoke } from "./lambda-invoke";
+import type {LambdaInvoke} from "./lambda-invoke";
+import { Lambda } from "aws-sdk";
 
 interface Blob {}
 type _Blob = Buffer | Uint8Array | Blob | string;
@@ -16,22 +15,18 @@ export type Lambda$InvocationResponse = {
    * The HTTP status code is in the 200 range for a successful request. For the RequestResponse invocation type, this status code is 200. For the Event invocation type, this status code is 202. For the DryRun invocation type, the status code is 204.
    */
   StatusCode?: number,
-
   /**
    * If present, indicates that an error occurred during function execution. Details about the error are included in the response payload.
    */
   FunctionError?: string,
-
   /**
    * The last 4 KB of the execution log, which is base64 encoded.
    */
   LogResult?: string,
-
   /**
    * The response from the function, or an error object.
    */
   Payload?: Buffer | Uint8Array | Blob | string,
-
   /**
    * The version of the function that executed. When you invoke a function with an alias, this indicates which version the alias resolved to.
    */
@@ -41,7 +36,7 @@ export type Lambda$InvocationResponse = {
 export class LambdaInvokeError extends Error {
   code: string;
 
-  constructor(response: Lambda$InvocationResponse) {
+  constructor(response: Lambda.InvocationResponse) {
     super(
       [
         "Invocation Failed",
@@ -61,7 +56,12 @@ export class LambdaInvokeError extends Error {
 /**
  * AWS Lambda SDK adapter for createClient.
  */
-export default function createLambdaClient({ Lambda, FunctionName }: CreateLambdaClientOptions): LambdaClientType {
+export default function createLambdaClient(
+  {
+    Lambda,
+    FunctionName,
+  }: CreateLambdaClientOptions,
+): LambdaClientType {
   return async (Payload: _Blob) => {
     const invocationResponse = await Lambda.invoke({
       FunctionName,

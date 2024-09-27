@@ -1,8 +1,8 @@
-// @flow
-
 import type { APIGatewayHandlerClient } from "../../src/create-client";
 import { createAPIGatewayEvent, createClient } from "../../src";
-import { LambdaInvokeError } from "../../src/create-lambda-client";
+import { Lambda$InvocationResponse, LambdaInvokeError } from "../../src/create-lambda-client";
+import { LambdaInvoke } from "../../src/lambda-invoke";
+import { APIGatewayEvent } from "aws-lambda";
 
 type ClientPayload = {};
 
@@ -11,14 +11,16 @@ describe("createClient", () => {
   const data = { hello: "world" };
   const body = JSON.stringify(data);
 
-  function createLambdaClient({ StatusCode, Payload = JSON.stringify({ statusCode: 200, body }), LogResult = null }) {
+  function createLambdaClient({ StatusCode, Payload = JSON.stringify({ statusCode: 200, body }), LogResult = undefined }: {
+    StatusCode?: number, Payload?: string, LogResult?: string
+  }): {invoke: LambdaInvoke['invoke'], Lambda: LambdaInvoke} {
     // $FlowFixMe
     const resolvedValue: Lambda$InvocationResponse = { StatusCode, Payload, LogResult };
 
     // $FlowFixMe[incompatible-call]
     const invoke = jest.fn(() => ({
       promise: jest.fn().mockResolvedValue(resolvedValue)
-    }));
+    })) as unknown as LambdaInvoke['invoke'];
     const Lambda = {
       invoke
     };
@@ -44,8 +46,8 @@ describe("createClient", () => {
           Lambda,
           FunctionName
         });
-        // $FlowFixMe[incompatible-call] this test calls the client with an invalid (undefined) argument to test a runtime error-handling branch that is not accessible with a valid argument
-        return expect(client()).rejects.toEqual(new Error("Cannot stringify value"));
+
+        return expect(client(undefined as unknown as APIGatewayEvent)).rejects.toEqual(new Error("Cannot stringify value"));
       });
     });
 
@@ -126,7 +128,7 @@ describe("createClient", () => {
     });
 
     it("is unsuccessful with no request payload", () => {
-      const { Lambda } = createLambdaClient({ StatusCode: 200, Payload: null });
+      const { Lambda } = createLambdaClient({ StatusCode: 200, Payload: null as unknown as string });
       const client = createClient<ClientPayload>({
         Lambda,
         FunctionName
