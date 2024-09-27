@@ -1,0 +1,72 @@
+name: ci-cd
+
+on:
+  push:
+    branches:
+      - '**/*'
+  pull_request:
+  release:
+    types: [released]
+
+jobs:
+  unit:
+    name: Unit
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node: [16, 18, 19]
+    timeout-minutes: 10
+    steps:
+      - name: Setup
+        uses: CumulusDS/workflow-setup-action@v2
+        if: github.event_name != 'pull_request_target'
+        with:
+          nodeVersion: ${{ matrix.node }}
+          npmToken: ${{ secrets.NODE_AUTH_TOKEN }}
+          fetch-depth: 0
+          packageManager: yarn3
+      - name: Setup (dependabot)
+        uses: CumulusDS/workflow-setup-action@v2
+        if: github.event_name == 'pull_request_target'
+        with:
+          nodeVersion: ${{ matrix.node }}
+          npmToken: ${{ secrets.NODE_AUTH_TOKEN }}
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          packageManager: yarn3
+      - name: Check licenses
+        run: yarn build:license-checker
+      - name: Test
+        run: yarn test
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: ${{ github.repository }} ${{ github.workflow }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        if: always() && github.actor != 'dependabot[bot]'
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: var
+          path: var
+        if: always()
+  publish:
+    name: Publish
+    runs-on: ubuntu-22.04
+    needs: unit
+    if: github.event_name == 'release'
+    timeout-minutes: 10
+    steps:
+      - name: Setup
+        uses: CumulusDS/workflow-setup-action@v2
+        with:
+          nodeVersion: ${{ matrix.node }}
+          npmToken: ${{ secrets.NODE_AUTH_TOKEN }}
+          fetch-depth: 0
+          packageManager: yarn3
+      - name: Build
+        run: yarn build
+      - name: Publish
+        run: yarn npm publish

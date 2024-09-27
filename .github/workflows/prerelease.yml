@@ -2,22 +2,24 @@ name: Prerelease
 on:
   push:
     tags-ignore:
-      - "**"
+      - '**'
     branches-ignore:
-      - "dependabot/**"
+      - 'dependabot/**'
     paths:
-      - .github/workflows/prerelease.yml
       - .babelrc.js
       - .eslintrc.js
       - .flowconfig
+      - .github/workflows/prerelease.yml
+      - .yarn/versions/*
       - .yarnrc.yml
+      - README.md
+      - bin/**/*
       - package.json
       - prettier.config.js
-      - yarn.lock
       - src/**/*
       - test/**/*
-      - README.md
-      - .yarn/versions/*
+      - tsconfig.json
+      - yarn.lock
 jobs:
   prerelease:
     name: Publish Prerelease

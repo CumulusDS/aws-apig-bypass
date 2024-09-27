@@ -1,7 +1,16 @@
 name: PR AutoLabeler
-on: [pull_request_target]
+
+on:
+  pull_request_target:
+
 jobs:
   label:
     name: Auto Labeler
-    uses: CumulusDS/workflows/.github/workflows/autolabeler.yml@master
-    secrets: inherit
+    runs-on: ubuntu-22.04
+    timeout-minutes: 3
+    steps:
+      - name: pr autolabeler
+        uses: actions/labeler@master
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: .github/labeler.yml

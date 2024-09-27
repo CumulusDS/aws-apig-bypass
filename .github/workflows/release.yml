@@ -9,3 +9,7 @@ jobs:
     name: Create Release
     uses: CumulusDS/workflows/.github/workflows/create-release.yml@master
     secrets: inherit
+  publish:
+    name: Publish
+    uses: CumulusDS/workflows/.github/workflows/package-publish.yml@master
+    secrets: inherit

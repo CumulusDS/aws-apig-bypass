@@ -1,8 +1,0 @@
-name: Remove Distribution Tag
-on: [delete]
-jobs:
-  remove-tag:
-    name: Remove distribution tag
-    if: github.event.ref_type == 'branch' && !startsWith(github.event.ref, 'dependabot/')
-    uses: Cumulusds/workflows/.github/workflows/package-prerelease-delete.yml@master
-    secrets: inherit
