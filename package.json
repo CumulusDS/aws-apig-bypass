@@ -19,6 +19,7 @@
     "build:flowtypes": "find lib -type f -name '*.d.ts' -exec sh -c 'yarn flowgen --add-flow-header $1 -o ${1%.*.*}.js.flow' _ '{}' \\;",
     "build:license-checker": "license-checker --csv --out var/licenses.csv",
     "clean": "shx rm -rf lib",
+    "flow": "echo this is not a flow project",
     "git:commit": "git add package.json .yarn/versions && git commit -m v${npm_package_version}",
     "git:commit:publish": "git add package.json .yarn/versions/* && git commit -m v${npm_package_version}",
     "git:commit:version": "git add .yarn/versions/* && git commit -m 'Deferred version bump'",
