@@ -36,7 +36,31 @@ updates:
     allow:
       - dependency-name: "@cumulusds/*"
         dependency-type: "all"
-      - dependency-name: "serverless-*"
+  - package-ecosystem: "npm"
+    directory: "/"
+    registries:
+      - npm-npmjs
+    schedule:
+      interval: "daily"
+      time: "07:30"
+      timezone: "America/New_York"
+    commit-message: # Prefix all commit messages with "npm security: "
+      prefix: "npm security"
+    labels:
+      - "dependencies"
+    assignees:
+      - "jeffsays"
+    reviewers:
+      - "jeffsays"
+    allow: # Provide security updates, but not version updates, for open-source packages
+      - dependency-name: "*"
         dependency-type: "all"
-      - dependency-name: "serverless"
-        dependency-type: "all"
+    ignore: # Issue security updates, but not regular updates, for public packages
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-major
+          - version-update:semver-minor
+          - version-update:semver-patch
+    target-branch: master # specifying target-branch in one configuration and not the other is a loophole that allows
+    # us to have two configurations for "npm".  see open feature request:
+    # https://github.com/dependabot/dependabot-core/issues/1778#issuecomment-1988140219

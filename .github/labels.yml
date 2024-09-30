@@ -11,12 +11,21 @@ labels:
 - name: automerge
   description: automergable
   color: "fbca04"
+- name: blocker
+  description: An issue that blocks prod release
+  color: "b60205"
+- name: breaking
+  description: Breaking Changes
+  color: bfd4f2
 - name: bug
   description: Something isn't working
   color: "d73a4a"
 - name: config
   description: configuration change
   color: "0e8a16"
+- name: dependabot
+  description: Pull requests opened by dependabot
+  color: 006b75
 - name: dependencies
   description: Pull requests that update a dependency file
   color: "0366d6"
@@ -64,9 +73,13 @@ repos:
   labels:
   - actions
   - autoapprove
+  - automation
   - automerge
+  - blocker
+  - breaking
   - bug
   - config
+  - dependabot
   - dependencies
   - deployment
   - dev
