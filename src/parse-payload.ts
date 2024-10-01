@@ -1,6 +1,4 @@
-// @flow
-
-import type { ProxyResult } from "@cumulusds/flow-aws-lambda";
+import { ProxyResult } from "aws-lambda";
 import type { Response } from "./response";
 
 /**
@@ -10,7 +8,7 @@ import type { Response } from "./response";
  * @param validate if given, the validate function is called on the parsed response body. The function should throw an exception if the response is invalid.
  * @returns {{headers: {[p: string]: boolean|number|string}, data: *, status: number}}
  */
-export default function parsePayload<T>(payload: string, validate?: T => void): Response<T> {
+export default function parsePayload<T>(payload: string, validate?: (arg1: T) => void): Response<T> {
   const proxyResult: ProxyResult = JSON.parse(payload);
   if (proxyResult.isBase64Encoded === true) {
     throw new Error("A base64 encoded response from API Gateway handler was received, but is not supported.");
@@ -20,6 +18,6 @@ export default function parsePayload<T>(payload: string, validate?: T => void): 
   return {
     data,
     status: proxyResult.statusCode,
-    headers: proxyResult.headers ?? {}
+    headers: proxyResult.headers ?? {},
   };
 }

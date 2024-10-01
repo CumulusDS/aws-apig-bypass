@@ -2,7 +2,7 @@
 
 Bypass the API Gateway by directly invoking the Lambda handler that backs an endpoint.
 
-We often build externally accessible REST endpoints using API Gateway and Lambda. Sometimes we have an endpoint with both internal and external (outside of AWS) clients. The API Gateway provides some value to external clients, since it helps authorize and rate-limit requests. However, it is a hinderance to internal clients, where we have other means of rate-limiting. Access control is often more consistent if we rely on IAM policies. The API Gateway adds cost and reduces convenience for internal clients.
+We often build externally accessible REST endpoints using API Gateway and Lambda. Sometimes we have an endpoint with both internal and external (outside of AWS) clients. The API Gateway provides some value to external clients, since it helps authorize and rate-limit requests. However, it is a hindrance to internal clients, where we have other means of rate-limiting. Access control is often more consistent if we rely on IAM policies. The API Gateway adds cost and reduces convenience for internal clients.
 
 This library provides an adapter for the Lambda SDK to make it easy to directly invoke the handler.
 
