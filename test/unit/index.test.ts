@@ -20,13 +20,9 @@ describe("createClient", () => {
     Payload?: string;
     LogResult?: string;
   }): { invoke: LambdaInvoke["invoke"]; Lambda: LambdaInvoke } {
-    // $FlowFixMe
     const resolvedValue: Lambda$InvocationResponse = { StatusCode, Payload, LogResult };
 
-    // $FlowFixMe[incompatible-call]
-    const invoke = jest.fn(() => ({
-      promise: jest.fn().mockResolvedValue(resolvedValue),
-    })) as unknown as LambdaInvoke["invoke"];
+    const invoke = jest.fn().mockResolvedValue(resolvedValue) as unknown as LambdaInvoke["invoke"];
     const Lambda = {
       invoke,
     };
@@ -113,7 +109,7 @@ describe("createClient", () => {
         new LambdaInvokeError({
           StatusCode: 500,
           LogResult: "Ym9ya2Vu",
-          Payload: JSON.stringify({ statusCode: 200, body }),
+          Payload: Buffer.from(JSON.stringify({ statusCode: 200, body })),
         }),
       );
     });
@@ -131,7 +127,7 @@ describe("createClient", () => {
         },
       });
       return expect(client(request)).rejects.toEqual(
-        new LambdaInvokeError({ Payload: JSON.stringify({ statusCode: 200, body }) }),
+        new LambdaInvokeError({ Payload: Buffer.from(JSON.stringify({ statusCode: 200, body })) }),
       );
     });
 
