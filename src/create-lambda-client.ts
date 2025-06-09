@@ -1,4 +1,4 @@
-import { Lambda } from "aws-sdk";
+import { InvocationResponse } from "@aws-sdk/client-lambda";
 import type { LambdaInvoke } from "./lambda-invoke";
 
 type _Blob = Buffer | Uint8Array | Blob | string;
@@ -35,7 +35,7 @@ export type Lambda$InvocationResponse = {
 export class LambdaInvokeError extends Error {
   code: string;
 
-  constructor(response: Lambda.InvocationResponse) {
+  constructor(response: InvocationResponse) {
     super(
       [
         "Invocation Failed",
@@ -63,15 +63,16 @@ export default function createLambdaClient({
     const invocationResponse = await LambdaShadow.invoke({
       FunctionName,
       Payload,
-    }).promise();
+    });
     if (invocationResponse.StatusCode !== 200 || invocationResponse.FunctionError != null) {
       throw new LambdaInvokeError(invocationResponse);
     }
-    if (typeof invocationResponse.Payload !== "string") {
+    const payload = invocationResponse.Payload?.toString();
+    if (typeof payload !== "string") {
       throw new Error(
         `AWS Lambda invocation API returned the wrong payload type '${typeof invocationResponse.Payload}'; expected 'string'`,
       );
     }
-    return invocationResponse.Payload;
+    return payload;
   };
 }

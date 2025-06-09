@@ -1,4 +1,4 @@
-import type { Lambda } from "aws-sdk";
+import type { Lambda } from "@aws-sdk/client-lambda";
 
 /**
  * This library only needs the invoke method from aws-sdk Lambda client.
