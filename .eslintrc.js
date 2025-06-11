@@ -15,6 +15,25 @@ module.exports = {
         tsx: "never",
       },
     ],
+    "import/order": [
+      "error",
+      {
+        groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
+        pathGroups: [{ pattern: "@cumulusds/**", group: "internal" }],
+        pathGroupsExcludedImportTypes: ["internal"],
+        "newlines-between": "always",
+        alphabetize: { order: "asc", caseInsensitive: true },
+      },
+    ],
+    "sort-imports": [
+      "error",
+      {
+        ignoreCase: true,
+        ignoreDeclarationSort: true, // Prevents conflicts with `import/order`
+        ignoreMemberSort: false, // Ensures named imports are sorted
+      },
+    ],
+    "@typescript-eslint/consistent-type-imports": "error",
   },
   parser: "@typescript-eslint/parser",
   plugins: ["jest", "@typescript-eslint"],

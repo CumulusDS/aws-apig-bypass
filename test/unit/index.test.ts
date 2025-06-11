@@ -1,8 +1,10 @@
-import { APIGatewayEvent } from "aws-lambda";
-import type { APIGatewayHandlerClient } from "../../src/create-client";
+import type { APIGatewayEvent } from "aws-lambda";
+
 import { createAPIGatewayEvent, createClient } from "../../src";
-import { Lambda$InvocationResponse, LambdaInvokeError } from "../../src/create-lambda-client";
-import { LambdaInvoke } from "../../src/lambda-invoke";
+import type { APIGatewayHandlerClient } from "../../src/create-client";
+import type { Lambda$InvocationResponse } from "../../src/create-lambda-client";
+import { LambdaInvokeError } from "../../src/create-lambda-client";
+import type { LambdaInvoke } from "../../src/lambda-invoke";
 
 type ClientPayload = Record<string, unknown>;
 

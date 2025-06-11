@@ -1,9 +1,10 @@
-import { APIGatewayEvent } from "aws-lambda";
+import type { APIGatewayEvent } from "aws-lambda";
+
 import createLambdaClient from "./create-lambda-client";
-import type { Response } from "./response";
 import jsonStringify from "./json-stringify";
-import parsePayload from "./parse-payload";
 import type { LambdaInvoke } from "./lambda-invoke";
+import parsePayload from "./parse-payload";
+import type { Response } from "./response";
 
 /**
  * Client that directly invokes an API Gateway handler, bypassing the gateway. The client handles packing and unpacking messages for invoking the handler.

@@ -1,4 +1,5 @@
-import { ProxyResult } from "aws-lambda";
+import type { ProxyResult } from "aws-lambda";
+
 import type { Response } from "./response";
 
 /**
