@@ -1,4 +1,5 @@
-import { InvocationResponse } from "@aws-sdk/client-lambda";
+import type { InvocationResponse } from "@aws-sdk/client-lambda";
+
 import type { LambdaInvoke } from "./lambda-invoke";
 
 type _Blob = Buffer | Uint8Array | Blob | string;
