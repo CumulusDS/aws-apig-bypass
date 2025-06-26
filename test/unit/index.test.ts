@@ -1,8 +1,8 @@
 import type { APIGatewayEvent } from "aws-lambda";
 
+import type { Lambda$InvocationResponse } from "../../lib/create-lambda-client";
 import { createAPIGatewayEvent, createClient } from "../../src";
 import type { APIGatewayHandlerClient } from "../../src/create-client";
-import type { Lambda$InvocationResponse } from "../../src/create-lambda-client";
 import { LambdaInvokeError } from "../../src/create-lambda-client";
 import type { LambdaInvoke } from "../../src/lambda-invoke";
 
@@ -146,7 +146,7 @@ describe("createClient", () => {
         },
       });
       return expect(client(request)).rejects.toEqual(
-        new Error("AWS Lambda invocation API returned the wrong payload type 'object'; expected 'string'"),
+        new Error("AWS Lambda invocation API returned the wrong payload type 'object';"),
       );
     });
   });
