@@ -6,16 +6,26 @@
   "author": "Cumulus Digital Systems",
   "license": "MIT",
   "engines": {
-    "node": "^18.0.0 || ^20.0.0 || >=21.0.0"
+    "node": ">=24.0.0"
   },
-  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    }
+  },
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
   "files": [
     "README.md",
     "lib/*",
     "package.json"
   ],
   "scripts": {
-    "build": "yarn run build:license-checker && tsc",
+    "build": "yarn run build:license-checker && yarn build:all",
+    "build:all": "yarn build:cjs && yarn build:esm",
+    "build:cjs": "tsc -p tsconfig.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
     "build:flowtypes": "find lib -type f -name '*.d.ts' -exec sh -c 'yarn flowgen --add-flow-header $1 -o ${1%.*.*}.js.flow' _ '{}' \\;",
     "build:license-checker": "license-checker --csv --out var/licenses.csv",
     "clean": "shx rm -rf lib",
@@ -34,7 +44,7 @@
     "publish:prepatch": "yarn run version:prepatch && yarn run git:push",
     "publish:prerelease": "yarn npm publish",
     "publish:sync": "yarn run git:commit && yarn run git:tag && yarn git:push",
-    "test": "yarn run test:jest && yarn run test:lint && yarn run test:prettier",
+    "test": "yarn typecheck && yarn run test:jest && yarn run test:lint && yarn run test:prettier",
     "test:jest": "jest --color",
     "test:lint": "eslint src/**/*.ts test/**/*.ts",
     "test:prettier": "prettier --list-different \"{src,test}/**/*.ts\"",
@@ -43,7 +53,10 @@
     "version:major": "yarn version --new-version major",
     "version:feature": "yarn version ${npm_package_version}-$0.$(git describe | rev | cut -d '-' -f 2 | rev).g$(git rev-parse --short HEAD)",
     "version:prepatch": "yarn version --new-version prepatch",
-    "version:prerelease": "yarn version ${npm_package_version}"
+    "version:prerelease": "yarn version ${npm_package_version}",
+    "typecheck": "yarn typecheck:cjs && yarn typecheck:esm",
+    "typecheck:cjs": "tsc -p tsconfig.json --noEmit",
+    "typecheck:esm": "tsc -p tsconfig.esm.json --noEmit"
   },
   "jest": {
     "verbose": true,
