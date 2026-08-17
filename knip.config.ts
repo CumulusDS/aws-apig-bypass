@@ -60,17 +60,10 @@ const config = async (): Promise<KnipConfig> => {
       files: "warn",
     },
     ignoreBinaries: [
-      // "getconf", // macOS binary
       "rev", // macOS binary
-      // "make", // gnu/macOS binary
-      // "sysctl", // macOS binary
     ],
     ignoreDependencies: [
-      // "@cumulusds/aws-cloudformation-wait-ready", // used in CI
-      // "@testmo/testmo-cli", // used in CI
-      // "git-list-updated", // used in CI
-      // "swagger-ui-dist", // used in src/handlers/swagger.ts
-      // "@cumulusds/graphql-schemas", // referenced in "codegen.yml"
+      "flowgen", // we unfortunately still generate flowtypes here
     ],
     ...jest,
     ...serverless,

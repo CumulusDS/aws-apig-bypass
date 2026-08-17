@@ -1,7 +1,7 @@
 import type { APIGatewayEvent } from "aws-lambda";
 
-export type PathParameters = { [name: string]: string } | null;
-export type QueryStringParameters = { [name: string]: string } | null;
+type PathParameters = { [name: string]: string } | null;
+type QueryStringParameters = { [name: string]: string } | null;
 
 const defaultRequestContext = {
   accountId: "",
