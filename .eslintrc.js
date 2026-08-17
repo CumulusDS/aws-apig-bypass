@@ -55,7 +55,7 @@ module.exports = {
       typescript: {
         alwaysTryTypes: true,
         noWarnOnMultipleProjects: true,
-        project: ["./tsconfig.json", "./tsconfig-scripts.json"],
+        project: ["./tsconfig.json", "./tsconfig.esm.json"],
       },
     },
   },
