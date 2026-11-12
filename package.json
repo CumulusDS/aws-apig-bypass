@@ -6,7 +6,7 @@
   "author": "Cumulus Digital Systems",
   "license": "MIT",
   "engines": {
-    "node": ">=24.0.0"
+    "node": "^24.22.2 || >=26.12.2"
   },
   "exports": {
     ".": {
