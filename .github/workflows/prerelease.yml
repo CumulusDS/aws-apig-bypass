@@ -10,7 +10,6 @@ on:
       - .yarn/versions/*
       - src/**/*
       - test/**/*
-      - .babelrc.js
       - .eslintrc.js
       - .nvmrc
       - .yarnrc.yml

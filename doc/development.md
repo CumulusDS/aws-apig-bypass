@@ -8,7 +8,7 @@
 - `flow-typed/` has library definitions for flow. The `flow-typed/npm` files are generated or community-supplied files. Nevertheless, these files must be included in source control.
 - `lib/` is the compiled (portable) library code that will be linked into dependent projects.
 - `scripts/` is for any utility scripts used for development of the module.
-- `src/` has the production source files. The files will be compiled by babel.
+- `src/` has the production source files. The files are compiled by the TypeScript compiler (`tsc`).
 - `test/` has the project's tests
 - `test/unit` is for unit tests. Its structure should parallel `/src`.
 - `test/integration` is for integration tests.
@@ -43,7 +43,7 @@ started with administrator privilege. To install Chocolatey:
 
 ## Node
 
-This project supports all current and active Node Releases (Node 10, 12, 13 and 14). The same version should be used in each development environment, to minimize any friction due to differences between Node releases. The project uses babel to transform the source code for the target version of Node.
+This project supports all current and active Node Releases (Node 10, 12, 13 and 14). The same version should be used in each development environment, to minimize any friction due to differences between Node releases. The project uses the TypeScript compiler to build the source code for the target version of Node.
 
 In Windows, install Node using Chocolatey from an administrator-privileged PowerShell terminal.
 
@@ -180,7 +180,7 @@ const client: any = { post }; // flowlint-line unclear-type:off
 
 ### Build
 
-Babel compiles the project to prepares Node-compatible javascript. The [babelrc](.babelrc.js) file configures the flow compiler and the target Node version, 10.15.0.
+The TypeScript compiler (`yarn compile`) builds Node-compatible JavaScript into `lib/cjs` and `lib/esm`, as configured by `tsconfig.build.json`, `tsconfig.cjs.json` and `tsconfig.esm.json`.
 
 # Quality
 
