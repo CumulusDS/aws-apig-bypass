@@ -524,14 +524,14 @@ __metadata:
   linkType: hard
 
 "@napi-rs/wasm-runtime@npm:^1.1.6":
-  version: 1.2.5
-  resolution: "@napi-rs/wasm-runtime@npm:1.2.5"
+  version: 1.2.7
+  resolution: "@napi-rs/wasm-runtime@npm:1.2.7"
   dependencies:
     "@tybys/wasm-util": "npm:^0.10.3"
   peerDependencies:
-    "@emnapi/core": ^1.7.1 || ^2.0.0-alpha.4
-    "@emnapi/runtime": ^1.7.1 || ^2.0.0-alpha.4
-  checksum: 10/b8367e6d47ff12b429efeefdfe42e316e920ca2fa4478d7bb926c50d101be43302084c89a519cb54d0ca1719d798b64e7d579dc2df8448d311aae999f44dfdd7
+    "@emnapi/core": ^1.7.1 || 2.0.0-beta.2 || 2.0.0-beta.3
+    "@emnapi/runtime": ^1.7.1 || 2.0.0-beta.2 || 2.0.0-beta.3
+  checksum: 10/e95ccbdeaab96c5f7e6e11c6bb3deb4ed47a795188990f6a025488d8611b82aa2c6c24f3017a6c04747fa4a5975962ed59bb89a44540431a52dac770a8afc165
   languageName: node
   linkType: hard
 
