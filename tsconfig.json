@@ -9,7 +9,6 @@
     "rootDirs": [".", "src"],
     "outDir": null,
     "skipLibCheck": true, // Skip type checking of declaration files
-    "tsBuildInfoFile": "./node_modules/.cache/tsconfig.tsbuildinfo",
-    "types": ["node", "jest"]
+    "tsBuildInfoFile": "./node_modules/.cache/tsconfig.tsbuildinfo"
   },
   "include": ["src", "test", "./*.cts", "./*.mts", "./*.ts"]}

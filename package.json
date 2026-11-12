@@ -46,8 +46,8 @@
     "publish:prepatch": "yarn run version:prepatch && yarn run git:push",
     "publish:prerelease": "yarn npm publish",
     "publish:sync": "yarn run git:commit && yarn run git:tag && yarn git:push",
-    "test": "yarn typecheck && yarn run knip && yarn run test:style && yarn run test:jest",
-    "test:jest": "jest --color --coverage",
+    "test": "yarn typecheck && yarn run knip && yarn run test:style && yarn run test:vite",
+    "test:vite": "vitest run --color --coverage",
     "test:lint": "eslint \"{__{tests,mocks}__,cypress,feature,features,mocks,scripts,src,test}/**/*.{cjs,js,jsx,mjs,ts,tsx,yml}\" \"*.{cjs,js,mjs,ts}\"",
     "test:prettier": "prettier --list-different \"{__{tests,mocks}__,cypress,feature,features,mocks,scripts,src,test}/**/*.{cjs,js,jsx,mjs,ts,tsx,yml}\" \"*.{cjs,js,mjs,ts,yml}\"",
     "test:style": "yarn run test:lint && yarn run test:prettier",
@@ -59,23 +59,6 @@
     "version:prerelease": "yarn version ${npm_package_version}",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
-  "jest": {
-    "verbose": true,
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/**/*.ts"
-    ],
-    "testEnvironment": "node",
-    "coverageDirectory": "var/coverage/test",
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
-    }
-  },
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.994.0"
   },
@@ -86,7 +69,6 @@
     "@babel/preset-env": "^7.29.7",
     "@babel/preset-typescript": "^7.29.7",
     "@types/aws-lambda": "^8.10.160",
-    "@types/jest": "^30.0.0",
     "@types/node": "^24.19.2",
     "@typescript-eslint/eslint-plugin": "^8.67.0",
     "@typescript-eslint/parser": "^8.67.0",
@@ -98,10 +80,8 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jest": "^29.16.1",
     "eslint-plugin-prettier": "^5.5.6",
     "flowgen": "^1.21.0",
-    "jest": "^30.4.2",
     "knip": "^6.32.2",
     "license-checker": "^25.0.1",
     "prettier": "^3.9.6",

@@ -5,21 +5,6 @@ const tsExtensionsGlob = "ts,cts,mts,tsx";
 const extensionsGlob = `${jsExtensionsGlob},${tsExtensionsGlob}`;
 
 /**
- * Jest configuration
- */
-const jest: KnipConfig = {
-  jest: {
-    config: ["jest.config.{js,ts,mjs,cjs,json}", "jest-dynamodb-config.js", "package.json"],
-    entry: [
-      "**/?(*.)+(spec|test).[jt]s?(x)",
-      "**/*.{bench,spec,spec-d,test,test-d}.?(c|m)[jt]s?(x)",
-      "**/{bench,spec,spec-d,test,test-d}/**.[jt]s?(x)",
-      "**/{__mocks__,__tests__}/**/*.[jt]s?(x)",
-    ],
-  },
-};
-
-/**
  * Serverless configuration - not auto-detected by knip as we use OSLS
  */
 const serverless: KnipConfig = {
@@ -38,7 +23,7 @@ const typescript: KnipConfig = {
 };
 
 /**
- * Vitest configuration - future proofing
+ * Vitest configuration
  */
 const vitest: KnipConfig = {
   vitest: {
@@ -65,7 +50,6 @@ const config = async (): Promise<KnipConfig> => {
     ignoreDependencies: [
       "flowgen", // we unfortunately still generate flowtypes here
     ],
-    ...jest,
     ...serverless,
     ...typescript,
     ...vitest,

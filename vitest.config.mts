@@ -6,9 +6,6 @@ import { defineConfig } from "vitest/config";
 const cwd = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  define: {
-    __VERSION__: JSON.stringify("TEST"),
-  },
   resolve: {
     tsconfigPaths: true,
     alias: {
