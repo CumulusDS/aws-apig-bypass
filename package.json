@@ -24,13 +24,11 @@
     "package.json"
   ],
   "scripts": {
-    "build": "yarn run build:license-checker && yarn build:all",
-    "build:all": "yarn build:cjs && yarn build:esm",
-    "build:cjs": "tsc -p tsconfig.json",
-    "build:esm": "tsc -p tsconfig.esm.json",
+    "build": "yarn run compile && yarn run build:license-checker",
     "build:flowtypes": "find lib -type f -name '*.d.ts' -exec sh -c 'yarn flowgen --add-flow-header $1 -o ${1%.*.*}.js.flow' _ '{}' \\;",
     "build:license-checker": "license-checker --csv --out var/licenses.csv",
     "clean": "shx rm -rf lib",
+    "compile": "tsc --build tsconfig.build.json --verbose",
     "flow": "echo this is not a flow project",
     "git:commit": "git add package.json .yarn/versions && git commit -m v${npm_package_version}",
     "git:commit:publish": "git add package.json .yarn/versions/* && git commit -m v${npm_package_version}",
@@ -59,9 +57,7 @@
     "version:feature": "yarn version ${npm_package_version}-$0.$(git describe | rev | cut -d '-' -f 2 | rev).g$(git rev-parse --short HEAD)",
     "version:prepatch": "yarn version --new-version prepatch",
     "version:prerelease": "yarn version ${npm_package_version}",
-    "typecheck": "yarn typecheck:cjs && yarn typecheck:esm",
-    "typecheck:cjs": "tsc -p tsconfig.json --noEmit",
-    "typecheck:esm": "tsc -p tsconfig.esm.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "jest": {
     "verbose": true,
@@ -91,6 +87,7 @@
     "@babel/preset-typescript": "^7.29.7",
     "@types/aws-lambda": "^8.10.160",
     "@types/jest": "^30.0.0",
+    "@types/node": "^24.19.2",
     "@typescript-eslint/eslint-plugin": "^8.67.0",
     "@typescript-eslint/parser": "^8.67.0",
     "aws-lambda": "^1.0.7",

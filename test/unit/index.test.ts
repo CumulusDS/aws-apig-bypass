@@ -1,6 +1,5 @@
 import type { APIGatewayEvent } from "aws-lambda";
 
-import type { Lambda$InvocationResponse } from "../../lib/create-lambda-client";
 import { createAPIGatewayEvent, createClient } from "../../src";
 import type { APIGatewayHandlerClient } from "../../src/create-client";
 import { LambdaInvokeError } from "../../src/create-lambda-client";
@@ -22,7 +21,7 @@ describe("createClient", () => {
     Payload?: string;
     LogResult?: string;
   }): { invoke: LambdaInvoke["invoke"]; Lambda: LambdaInvoke } {
-    const resolvedValue: Lambda$InvocationResponse = { StatusCode, Payload, LogResult };
+    const resolvedValue = { StatusCode, Payload, LogResult };
 
     const invoke = jest.fn().mockResolvedValue(resolvedValue) as unknown as LambdaInvoke["invoke"];
     const Lambda = {

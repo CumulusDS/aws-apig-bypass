@@ -1916,6 +1916,7 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.29.7"
     "@types/aws-lambda": "npm:^8.10.160"
     "@types/jest": "npm:^30.0.0"
+    "@types/node": "npm:^24.19.2"
     "@typescript-eslint/eslint-plugin": "npm:^8.67.0"
     "@typescript-eslint/parser": "npm:^8.67.0"
     aws-lambda: "npm:^1.0.7"
@@ -3789,6 +3790,15 @@ __metadata:
   version: 14.14.7
   resolution: "@types/node@npm:14.14.7"
   checksum: 10/1e5d71b43fabcc64f8734e33f35d6ed8ee8a6563725e1b1debe5715e29a9ffc4798b506d23c97fc744d40826af5a0cad742e5cb4fb33dfba2c1897bab5a6e235
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^24.19.2":
+  version: 24.19.2
+  resolution: "@types/node@npm:24.19.2"
+  dependencies:
+    undici-types: "npm:>=7.24.0 <7.24.7"
+  checksum: 10/5bc31df093f2866db0a2f9df0a1e99c2a46c3154ca2dc62ee14bde7af216d6361e4737e1023880921007ccb326b8559980e239e18a6fa927cda507da9383225c
   languageName: node
   linkType: hard
 
@@ -10146,6 +10156,13 @@ __metadata:
     has-symbols: "npm:^1.1.0"
     which-boxed-primitive: "npm:^1.1.1"
   checksum: 10/fadb347020f66b2c8aeacf8b9a79826fa34cc5e5457af4eb0bbc4e79bd87fed0fa795949825df534320f7c13f199259516ad30abc55a6e7b91d8d996ca069e50
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:>=7.24.0 <7.24.7":
+  version: 7.24.6
+  resolution: "undici-types@npm:7.24.6"
+  checksum: 10/defc9538b952e3c15b8526596c591f7c1f0c7605ad27a2b7feddbea7ef2e3003f3eda2cdb051a3cb1a2185e3893100fd9cb925c799db99d48131ea63b5233d10
   languageName: node
   linkType: hard
 
