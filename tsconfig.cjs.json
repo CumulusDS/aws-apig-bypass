@@ -1,0 +1,10 @@
+{
+  "$schema": "https://www.schemastore.org/tsconfig",
+  "extends": ["./tsconfig.src.json"],
+  "compilerOptions": {
+    "module": "commonjs", // Specify module code generation
+    "outDir": "lib/cjs",
+    "tsBuildInfoFile": "./node_modules/.cache/tsconfig.cjs.tsbuildinfo"
+  },
+  "include": ["src"]
+}
