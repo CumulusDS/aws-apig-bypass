@@ -1,6 +1,6 @@
 {
   "$schema": "https://www.schemastore.org/tsconfig",
-  "extends": ["./tsconfig.build.json"],
+  "extends": ["./tsconfig.build.json", "./tsconfig.src.json"],
   "compilerOptions": {
     "module": "NodeNext", // Specify module code generation
     "moduleResolution": "NodeNext",
@@ -10,5 +10,6 @@
     "outDir": null,
     "skipLibCheck": true, // Skip type checking of declaration files
     "tsBuildInfoFile": "./node_modules/.cache/tsconfig.tsbuildinfo",
+    "types": ["node", "jest"]
   },
   "include": ["src", "test", "./*.cts", "./*.mts", "./*.ts"]}
