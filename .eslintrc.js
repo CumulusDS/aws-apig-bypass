@@ -36,9 +36,8 @@ module.exports = {
     "@typescript-eslint/consistent-type-imports": "error",
   },
   parser: "@typescript-eslint/parser",
-  plugins: ["jest", "@typescript-eslint"],
+  plugins: ["@vitest", "@typescript-eslint"],
   env: {
-    "jest/globals": true,
     node: true,
   },
   parserOptions: {
@@ -46,7 +45,7 @@ module.exports = {
   },
   settings: {
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"],
+      "@typescript-eslint/parser": [".cts", ".mts", ".ts", ".tsx"],
     },
     "import/resolver": {
       node: {
@@ -55,7 +54,7 @@ module.exports = {
       typescript: {
         alwaysTryTypes: true,
         noWarnOnMultipleProjects: true,
-        project: ["./tsconfig.json", "./tsconfig.esm.json"],
+        project: ["./tsconfig.json", "./tsconfig.esm.json", "./tsconfig.cjs.json"],
       },
     },
   },
@@ -65,6 +64,17 @@ module.exports = {
       parser: "@typescript-eslint/parser",
       plugins: ["@typescript-eslint"],
       extends: ["plugin:@typescript-eslint/recommended"],
+    },
+    {
+      files: ["test/**/*.{spec,test}.{ts,tsx}"],
+      plugins: ["@vitest"],
+      extends: ["plugin:@vitest/legacy-recommended"],
+    },
+    {
+      files: ["vitest.config.mts"],
+      rules: {
+        "import/no-extraneous-dependencies": "off",
+      },
     },
   ],
 };

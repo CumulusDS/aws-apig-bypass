@@ -1,4 +1,5 @@
 import type { APIGatewayEvent } from "aws-lambda";
+import { describe, expect, it, vi } from "vitest";
 
 import { createAPIGatewayEvent, createClient } from "../../src";
 import type { APIGatewayHandlerClient } from "../../src/create-client";
@@ -23,7 +24,7 @@ describe("createClient", () => {
   }): { invoke: LambdaInvoke["invoke"]; Lambda: LambdaInvoke } {
     const resolvedValue = { StatusCode, Payload, LogResult };
 
-    const invoke = jest.fn().mockResolvedValue(resolvedValue) as unknown as LambdaInvoke["invoke"];
+    const invoke = vi.fn().mockResolvedValue(resolvedValue) as unknown as LambdaInvoke["invoke"];
     const Lambda = {
       invoke,
     };
