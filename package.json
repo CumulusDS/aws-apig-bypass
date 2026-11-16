@@ -18,9 +18,9 @@
   "module": "lib/esm/index.js",
   "files": [
     "README.md",
-    "lib/*",
-    "lib/cjs/*",
-    "lib/esm/*",
+    "lib/**",
+    "lib/cjs/**",
+    "lib/esm/**",
     "package.json"
   ],
   "scripts": {
